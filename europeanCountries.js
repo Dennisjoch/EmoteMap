@@ -1,4 +1,4 @@
-export const EUROPEAN_COUNTRIES = [
+window.EUROPEAN_COUNTRIES = [
   { name: 'Germany', countryCode: 'DE', latitude: 51.165691, longitude: 10.451526 },
   { name: 'France', countryCode: 'FR', latitude: 46.603354, longitude: 1.888334 },
   { name: 'Italy', countryCode: 'IT', latitude: 42.504154, longitude: 12.646361 },
