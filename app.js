@@ -1,54 +1,105 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { render } from 'react-dom';
+import Map from 'ol/Map';
+import View from 'ol/View';
+import TileLayer from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import Feature from 'ol/Feature';
+import Point from 'ol/geom/Point';
+import { fromLonLat } from 'ol/proj';
+import Overlay from 'ol/Overlay';
+import { toStringHDMS } from 'ol/coordinate';
 
-function App() {
-  const [markers, setMarkers] = useState([]);
+const App = () => {
+  const [selectedEmote, setSelectedEmote] = useState(null);
+  const [mostPopularEmotes, setMostPopularEmotes] = useState([]);
+  const [countryCode, setCountryCode] = useState(null);
 
-  async function fetchEmoteMarkers() {
-    try {
-      const response = await fetch('https://emotebackend.vercel.app/api/getMostPopularEmotesByCountry');
-      const data = await response.json();
+  function fetchMostPopularEmotes() {
+    const backendUrl = 'https://emotebackend.vercel.app';
 
-      // Konvertieren der Emote-Daten in Marker-Objekte
-      const markers = data.map(emote => ({
-        latlng: [emote.latitude, emote.longitude],
-        emote: emote.emote
-      }));
+    fetch(`${backendUrl}/api/getMostPopularEmotesByCountry`)
+      .then(response => response.json())
+      .then(data => {
+        setMostPopularEmotes(data);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }
 
-      setMarkers(markers);
-    } catch (error) {
-      console.error('Error fetching data:', error);
+  function getEmoteForCountry(countryCode) {
+    const countryEmote = mostPopularEmotes.find(emote => emote.countryCode === countryCode);
+    console.log('Emote for country', countryCode, countryEmote ? countryEmote.emote : '🤔');
+    return countryEmote ? countryEmote.emote : '🤔';
+  }
+
+  async function fetchCountryCode() {
+    const response = await fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=51.165691&lon=10.451526');
+    const data = await response.json();
+
+    if (data && data.address && data.address.country_code) {
+      setCountryCode(data.address.country_code.toUpperCase());
     }
   }
 
   useEffect(() => {
-    // Rufe die Emote-Marker alle 5 Minuten auf
-    fetchEmoteMarkers();
-    const interval = setInterval(fetchEmoteMarkers, 5 * 60 * 1000);
-    return () => clearInterval(interval);
+    fetchCountryCode();
+    fetchMostPopularEmotes();
   }, []);
 
   useEffect(() => {
-    // Erstelle die Karte mit Leaflet und füge die Marker hinzu
-    const map = L.map('map').setView([51.165691, 10.451526], 5);
+    const timer = setInterval(() => {
+      fetchMostPopularEmotes();
+    }, 300000);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
-      maxZoom: 18,
-    }).addTo(map);
+    return () => clearInterval(timer);
+  }, []);
 
-    markers.forEach(marker => {
-      const icon = L.divIcon({
-        className: 'emote-marker',
-        html: marker.emote
-      });
+  useEffect(() => {
+    if (!countryCode) return;
 
-      L.marker(marker.latlng, { icon }).addTo(map);
+    const markerCoords = COUNTRIES.find(c => c.countryCode === countryCode)?.coords;
+    if (!markerCoords) return;
+
+    const map = new Map({
+      target: 'map',
+      layers: [
+        new TileLayer({
+          source: new OSM(),
+        }),
+      ],
+      view: new View({
+        center: fromLonLat(markerCoords),
+        zoom: 6,
+      }),
     });
-  }, [markers]);
 
-  return (
-    <div id="map" style={{ height: '100vh' }}></div>
-  );
-}
+    const marker = new Feature({
+      geometry: new Point(fromLonLat(markerCoords)),
+    });
 
-export default App;
+    const markerVectorSource = new VectorSource({
+      features: [marker],
+    });
+
+    const markerVectorLayer = new VectorLayer({
+      source: markerVectorSource,
+    });
+
+    map.addLayer(markerVectorLayer);
+
+    const popup = new Overlay({
+      element: document.getElementById('popup'),
+      positioning: 'bottom-center',
+      stopEvent: false,
+      offset: [0, -10],
+    });
+
+    map.addOverlay(popup);
+
+    map.on('click', function (evt) {
+      const feature = map.getFeaturesAtPixel(evt.pixel)[0];
+      if (feature) {
+        const coordinate = feature.getGeometry().getCoordinates();
+       
