@@ -1,0 +1,31 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Ändern Sie dies in den Namen Ihres Hauptzweigs, wenn es nicht "main" ist
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm ci  # Wenn Sie Yarn verwenden, ändern Sie dies in `yarn install --frozen-lockfile`
+
+      - name: Build project
+        run: npm run build  # Wenn Sie Yarn verwenden, ändern Sie dies in `yarn build`
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target_branch: gh-pages  # Dies ist der Standardzweig für GitHub Pages
+          build_dir: build  # Ändern Sie dies in den Ordner, in dem sich die gebauten Dateien befinden, z. B. "dist" oder "public"
