@@ -1,5 +1,5 @@
 // Ersetzen Sie <BACKEND_URL> durch die URL Ihres Backend-Servers
-const backendUrl = "<BACKEND_URL>/api/getMostPopularEmotesByCountry";
+const backendUrl = "https://emotebackend.vercel.app/api/getMostPopularEmotesByCountry";
 
 const map = L.map("map").setView([51.165691, 10.451526], 3);
 
