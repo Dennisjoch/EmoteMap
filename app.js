@@ -1,36 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import EmotionMap from './EmotionMap';
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2FsaXJvYm90IiwiYSI6ImNsZzN0Y3lrMjA4aXEzaHFlYXczbHl5c3IifQ.vCKMxqx0hgyoHzmRcpJ60w';
 
-function App() {
-  const [emotes, setEmotes] = useState([]);
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v11',
+  center: [10.451526, 51.165691],
+  zoom: 3
+});
 
-  useEffect(() => {
-    const fetchEmotes = async () => {
-      const backendUrl = 'https://emotebackend.vercel.app';
-      try {
-        const response = await fetch(`${backendUrl}/api/getMostPopularEmotesByCountry`);
-        const data = await response.json();
-        setEmotes(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchEmotes();
-    const interval = setInterval(() => {
-      fetchEmotes();
-    }, 300000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div>
-      <h1>Emotionale Landkarte</h1>
-      <EmotionMap emotes={emotes} />
-    </div>
-  );
+async function fetchMostPopularEmotes() {
+  const backendUrl = 'https://emotebackend.vercel.app';
+  const response = await fetch(`${backendUrl}/api/getMostPopularEmotesByCountry`);
+  return await response.json();
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+function addEmoteMarkers(emotes) {
+  emotes.forEach(emote => {
+    const countryCode = emote.countryCode;
+    const countryData = EUROPEAN_COUNTRIES.find(country => country.countryCode === countryCode);
+
+    if (countryData) {
+      const el = document.createElement('div');
+      el.className = 'marker';
+      el.textContent = emote.emote;
+      el.style.fontSize = '24px';
+
+      new mapboxgl.Marker(el)
+        .setLngLat([countryData.longitude, countryData.latitude])
+        .addTo(map);
+    }
+  });
+}
+
+async function updateMap() {
+  const mostPopularEmotes = await fetchMostPopularEmotes();
+  addEmoteMarkers(mostPopularEmotes);
+}
+
+updateMap();
+setInterval(updateMap, 300000); // Alle 5 Minuten aktualisieren
