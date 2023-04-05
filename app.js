@@ -1,3 +1,5 @@
+import { EUROPEAN_COUNTRIES } from './europeanCountries.js';
+
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2FsaXJvYm90IiwiYSI6ImNsZzN0Y3lrMjA4aXEzaHFlYXczbHl5c3IifQ.vCKMxqx0hgyoHzmRcpJ60w';
 
 const map = new mapboxgl.Map({
