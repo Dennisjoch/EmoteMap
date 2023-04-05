@@ -1,55 +1,54 @@
-// Ersetzen Sie <BACKEND_URL> durch die URL Ihres Backend-Servers
-const backendUrl = "https://emotebackend.vercel.app/api/getMostPopularEmotesByCountry";
+import React, { useEffect, useState } from 'react';
 
-const map = L.map("map").setView([51.165691, 10.451526], 3);
+function App() {
+  const [markers, setMarkers] = useState([]);
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-}).addTo(map);
+  async function fetchEmoteMarkers() {
+    try {
+      const response = await fetch('https://emotebackend.vercel.app/api/getMostPopularEmotesByCountry');
+      const data = await response.json();
 
-let markers = {};
-
-function updateMarkers(emotes) {
-  // Entfernen Sie alte Marker
-  for (const countryCode in markers) {
-    markers[countryCode].remove();
-  }
-
-  // Fügen Sie neue Marker hinzu
-  for (const emoteData of emotes) {
-    const divIcon = L.divIcon({
-      html: `<div style="font-size: 24px;">${emoteData.emote}</div>`,
-      className: 'custom-emote-icon',
-      iconSize: [30, 30],
-      iconAnchor: [15, 30],
-    });
-
-    const marker = L.marker([emoteData.latitude, emoteData.longitude], {
-      icon: divIcon,
-    }).addTo(map);
-    marker.bindPopup(`<b>${emoteData.name}</b><br>Emote: ${emoteData.emote}`);
-    markers[emoteData.countryCode] = marker;
-  }
-}
-
-function fetchEmotes() {
-  fetch(backendUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      const formattedData = data.map((item) => ({
-        ...item,
-        latitude: parseFloat(item.latitude),
-        longitude: parseFloat(item.longitude),
+      // Konvertieren der Emote-Daten in Marker-Objekte
+      const markers = data.map(emote => ({
+        latlng: [emote.latitude, emote.longitude],
+        emote: emote.emote
       }));
-      updateMarkers(formattedData);
-    })
-    .catch((error) => console.error("Error fetching data:", error));
+
+      setMarkers(markers);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  useEffect(() => {
+    // Rufe die Emote-Marker alle 5 Minuten auf
+    fetchEmoteMarkers();
+    const interval = setInterval(fetchEmoteMarkers, 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    // Erstelle die Karte mit Leaflet und füge die Marker hinzu
+    const map = L.map('map').setView([51.165691, 10.451526], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+      maxZoom: 18,
+    }).addTo(map);
+
+    markers.forEach(marker => {
+      const icon = L.divIcon({
+        className: 'emote-marker',
+        html: marker.emote
+      });
+
+      L.marker(marker.latlng, { icon }).addTo(map);
+    });
+  }, [markers]);
+
+  return (
+    <div id="map" style={{ height: '100vh' }}></div>
+  );
 }
 
-// Aktualisieren Sie die Marker beim Laden der Seite
-fetchEmotes();
-
-// Aktualisieren Sie die Marker alle 5 Minuten (300000 Millisekunden)
-setInterval(fetchEmotes, 300000);
-
+export default App;
