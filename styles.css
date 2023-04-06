@@ -9,3 +9,14 @@ body, html {
   bottom: 0;
   width: 100%;
 }
+
+.legend {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+}
