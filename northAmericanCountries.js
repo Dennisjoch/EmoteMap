@@ -1,4 +1,4 @@
-export const NORTH_AMERICAN_COUNTRIES = [
+window.NORTH_AMERICAN_COUNTRIES = [
     { name: 'Antigua and Barbuda', countryCode: 'AG', latitude: 17.060816, longitude: -61.796428 },
     { name: 'Bahamas', countryCode: 'BS', latitude: 25.03428, longitude: -77.39628 },
     { name: 'Barbados', countryCode: 'BB', latitude: 13.193887, longitude: -59.543198 },
