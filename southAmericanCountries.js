@@ -1,4 +1,4 @@
-export const SOUTH_AMERICAN_COUNTRIES = [
+window.SOUTH_AMERICAN_COUNTRIES = [
     { name: 'Argentina', countryCode: 'AR', latitude: -38.416097, longitude: -63.616672 },
     { name: 'Bolivia', countryCode: 'BO', latitude: -16.290154, longitude: -63.588653 },
     { name: 'Brazil', countryCode: 'BR', latitude: -14.235004, longitude: -51.92528 },
