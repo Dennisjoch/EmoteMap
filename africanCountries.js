@@ -1,4 +1,4 @@
-export const AFRICAN_COUNTRIES = [
+window.AFRICAN_COUNTRIES = [
     { name: 'Algeria', countryCode: 'DZ', latitude: 28.033886, longitude: 1.659626 },
     { name: 'Angola', countryCode: 'AO', latitude: -11.202692, longitude: 17.873887 },
     { name: 'Benin', countryCode: 'BJ', latitude: 9.30769, longitude: 2.315834 },
