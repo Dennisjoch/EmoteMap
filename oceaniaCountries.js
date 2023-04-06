@@ -1,4 +1,4 @@
-export const OCEANIA_COUNTRIES = [
+window.OCEANIA_COUNTRIES = [
     { name: 'Australia', countryCode: 'AU', latitude: -25.274398, longitude: 133.775136 },
     { name: 'Fiji', countryCode: 'FJ', latitude: -17.713371, longitude: 178.065032 },
     { name: 'Kiribati', countryCode: 'KI', latitude: -3.370417, longitude: -168.734039 },
