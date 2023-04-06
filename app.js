@@ -13,21 +13,28 @@ async function fetchMostPopularEmotes() {
   return await response.json();
 }
 
+const ALL_COUNTRIES = [
+  ...AFRICAN_COUNTRIES,
+  ...ASIAN_COUNTRIES,
+  ...EUROPEAN_COUNTRIES,
+  ...NORTH_AMERICAN_COUNTRIES,
+  ...OCEANIA_COUNTRIES,
+  ...SOUTH_AMERICAN_COUNTRIES
+];
+
 function addEmoteMarkers(emotes) {
-  emotes.forEach(emote => {
-    const countryCode = emote.countryCode;
-    const countryData = EUROPEAN_COUNTRIES.find(country => country.countryCode === countryCode);
+  ALL_COUNTRIES.forEach(countryData => {
+    const countryCode = countryData.countryCode;
+    const emoteData = emotes.find(emote => emote.countryCode === countryCode);
 
-    if (countryData) {
-      const el = document.createElement('div');
-      el.className = 'marker';
-      el.textContent = emote.emote;
-      el.style.fontSize = '24px';
+    const el = document.createElement('div');
+    el.className = 'marker';
+    el.textContent = emoteData ? emoteData.emote : '🤔'; // Fallback auf 🤔, wenn keine Emote-Daten vorhanden sind
+    el.style.fontSize = '24px';
 
-      new mapboxgl.Marker(el)
-        .setLngLat([countryData.longitude, countryData.latitude])
-        .addTo(map);
-    }
+    new mapboxgl.Marker(el)
+      .setLngLat([countryData.longitude, countryData.latitude])
+      .addTo(map);
   });
 }
 
