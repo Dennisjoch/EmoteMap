@@ -1,4 +1,4 @@
-export const ASIAN_COUNTRIES = [
+window.ASIAN_COUNTRIES = [
     { name: 'Afghanistan', countryCode: 'AF', latitude: 33.93911, longitude: 67.709953 },
     { name: 'Armenia', countryCode: 'AM', latitude: 40.069099, longitude: 45.038189 },
     { name: 'Azerbaijan', countryCode: 'AZ', latitude: 40.143105, longitude: 47.576927 },
