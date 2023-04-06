@@ -33,5 +33,8 @@ window.EUROPEAN_COUNTRIES = [
   { name: 'Liechtenstein', countryCode: 'LI', latitude: 47.166, longitude: 9.555373 },
   { name: 'Monaco', countryCode: 'MC', latitude: 43.750298, longitude: 7.412841 },
   { name: 'San Marino', countryCode: 'SM', latitude: 43.94236, longitude: 12.457777 },
-  { name: 'Vatican City', countryCode: 'VA', latitude: 41.902916, longitude: 12.453389 }
+  { name: 'Vatican City', countryCode: 'VA', latitude: 41.902916, longitude: 12.453389 },
+  { name: 'Belarus', countryCode: 'BY', latitude: 53.709807, longitude: 27.953389 },
+  { name: 'Ukraine', countryCode: 'UA', latitude: 48.379433, longitude: 31.165580 },
+  { name: 'Moldova', countryCode: 'MD', latitude: 47.411631, longitude: 28.369885 }
   ];
