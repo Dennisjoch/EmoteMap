@@ -1,0 +1,26 @@
+export const NORTH_AMERICAN_COUNTRIES = [
+    { name: 'Antigua and Barbuda', countryCode: 'AG', latitude: 17.060816, longitude: -61.796428 },
+    { name: 'Bahamas', countryCode: 'BS', latitude: 25.03428, longitude: -77.39628 },
+    { name: 'Barbados', countryCode: 'BB', latitude: 13.193887, longitude: -59.543198 },
+    { name: 'Belize', countryCode: 'BZ', latitude: 17.189877, longitude: -88.49765 },
+    { name: 'Canada', countryCode: 'CA', latitude: 56.130366, longitude: -106.346771 },
+    { name: 'Costa Rica', countryCode: 'CR', latitude: 9.748917, longitude: -83.753428 },
+    { name: 'Cuba', countryCode: 'CU', latitude: 21.521757, longitude: -77.781167 },
+    { name: 'Dominica', countryCode: 'DM', latitude: 15.414999, longitude: -61.370976 },
+    { name: 'Dominican Republic', countryCode: 'DO', latitude: 18.735693, longitude: -70.162651 },
+    { name: 'El Salvador', countryCode: 'SV', latitude: 13.794185, longitude: -88.89653 },
+    { name: 'Grenada', countryCode: 'GD', latitude: 12.262776, longitude: -61.604171 },
+    { name: 'Guatemala', countryCode: 'GT', latitude: 15.783471, longitude: -90.230759 },
+    { name: 'Haiti', countryCode: 'HT', latitude: 18.971187, longitude: -72.285215 },
+    { name: 'Honduras', countryCode: 'HN', latitude: 15.199999, longitude: -86.241905 },
+    { name: 'Jamaica', countryCode: 'JM', latitude: 18.109581, longitude: -77.297508 },
+    { name: 'Mexico', countryCode: 'MX', latitude: 23.634501, longitude: -102.552784 },
+    { name: 'Nicaragua', countryCode: 'NI', latitude: 12.865416, longitude: -85.207229 },
+    { name: 'Panama', countryCode: 'PA', latitude: 8.538, longitude: -80.782127 },
+    { name: 'Saint Kitts and Nevis', countryCode: 'KN', latitude: 17.357822, longitude: -62.782998 },
+    { name: 'Saint Lucia', countryCode: 'LC', latitude: 13.909444, longitude: -60.978893 },
+    { name: 'Saint Vincent and the Grenadines', countryCode: 'VC', latitude: 12.984305, longitude: -61.287228 },
+    { name: 'Trinidad and Tobago', countryCode: 'TT', latitude: 10.691803, longitude: -61.222503 },
+    { name: 'United States', countryCode: 'US', latitude: 37.09024, longitude: -95.712891 }
+  ];
+  
