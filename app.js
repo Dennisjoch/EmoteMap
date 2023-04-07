@@ -44,4 +44,4 @@ async function updateMap() {
 }
 
 updateMap();
-setInterval(updateMap, 300000); // Alle 5 Minuten aktualisieren
+setInterval(updateMap, 60000); // Jede minute aktualisieren
