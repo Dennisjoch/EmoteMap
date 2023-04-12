@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyEmoteMap - Statistiken</title>
+    <link rel="stylesheet" href="statistics_styles.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="firebaseConfig.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<h1>Statistiken</h1>
+<div class="stat">
+    <h2>Land mit den meisten Abstimmungen</h2>
+    <p id="most-votes"></p>
+</div>
+<div class="stat">
+    <h2>Glücklichstes Land</h2>
+    <p id="happiest-country"></p>
+</div>
+<div class="stat">
+    <h2>Gesamtzahl der Stimmen</h2>
+    <p id="total-votes"></p>
+</div>
+<div class="stat">
+    <h2>Emote-Verteilung für ein Land</h2>
+    <select id="country-select">
+        <!-- Die Optionen werden dynamisch mit JavaScript hinzugefügt -->
+    </select>
+    <canvas id="emote-chart"></canvas>
+</div>
+<script src="https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js"></script>
+<script src="firebaseConfig.js"></script>
+<script src="statistics.js"></script>
+</body>
+</html>
