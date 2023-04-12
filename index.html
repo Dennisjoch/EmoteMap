@@ -18,8 +18,24 @@
   <link rel="canonical" href="https://dennisjoch.github.io/EmoteMap/">
   <meta name="author" content="DeDo Studios UG">
   <meta name="copyright" content="DeDo Studios UG">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+<button id="login-btn">Login</button>
+<div id="login-dialog" title="Login">
+  <form>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+    <button id="submit-btn" type="button">Submit</button>
+  </form>
+</div>
   <div class="legend">
     <p><span role="img" aria-label="happy">😊</span> - Happy</p>
     <p><span role="img" aria-label="sad">😢</span> - Sad</p>

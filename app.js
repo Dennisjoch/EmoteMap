@@ -45,3 +45,30 @@ async function updateMap() {
 
 updateMap();
 setInterval(updateMap, 60000); // Jede minute aktualisieren
+
+// Öffnet das Login-Fenster
+$("#login-btn").click(function () {
+  $("#login-dialog").dialog({
+    modal: true,
+    show: "fade",
+    hide: "fade",
+    draggable: false, // Deaktiviert das Verschieben des Login-Fensters
+    title: null, // Entfernt den Standard-Dialog-Titel
+    classes: { // Fügt benutzerdefinierte CSS-Klassen hinzu
+      "ui-dialog": "custom-ui-dialog",
+      "ui-dialog-content": "custom-ui-dialog-content"
+    }
+  });
+});
+
+// Überprüft die Anmeldedaten und leitet zur Statistik-Seite weiter
+$("#submit-btn").click(function () {
+  const username = $("#username").val();
+  const password = $("#password").val();
+
+  if (username === "admin" && password === "admin") {
+    window.location.href = "statistics.html";
+  } else {
+    alert("Wrong username or password. Please try again.");
+  }
+});
