@@ -1,0 +1,7 @@
+{
+  "name": "htdocs",
+  "version": "1.0.0",
+  "devDependencies": {
+    "firebase": "^9.19.1"
+  }
+}

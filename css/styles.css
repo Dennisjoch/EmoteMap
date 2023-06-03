@@ -34,7 +34,6 @@ body, html {
   padding-right: 8px;
 }
 
-/* Login-Button */
 #login-btn {
   position: fixed;
   bottom: 20px;
@@ -55,12 +54,10 @@ body, html {
   background-color: #0056b3;
 }
 
-/* Allgemeine Stile */
 body, input, button {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Login-Dialog */
 .custom-ui-dialog {
   border-radius: 10px;
   overflow: hidden;
@@ -107,7 +104,96 @@ body, input, button {
   transition: background-color 0.3s;
 }
 
+#register-submit-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s;
+}
+
 #submit-btn:hover {
   background-color: #0056b3;
 }
 
+#register-submit-btn:hover {
+  background-color: #0056b3;
+}
+
+#open-register-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s;
+}
+
+#open-register-btn:hover {
+  background-color: #0056b3;
+}
+
+#login-dialog {
+  z-index: 1001;
+  display: none;
+}
+
+#register-login-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s;
+}
+
+#register-login-btn:hover {
+  background-color: #0056b3;
+}
+
+#register-dialog label,
+#register-dialog input {
+  display: block;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+#register-dialog input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.ui-dialog {
+  resize: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#register-button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#login-button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
